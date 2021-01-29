@@ -1,19 +1,25 @@
 <template>
+  <Pagination/>
   <Form/>
 </template>
 
 <script>
 import Form from "./components/Form";
+import Pagination from "./components/Pagination";
 
 export default {
   name: 'App',
   components: {
+    Pagination,
     Form,
   }
 }
 </script>
 
 <style>
+  body {
+    margin: 0;
+  }
 #app {
   font-family: "Roboto Medium",serif;
   -webkit-font-smoothing: antialiased;
@@ -22,5 +28,7 @@ export default {
   display: flex;
   flex-direction: column;
   width: 100%;
+  margin: 0;
+  padding: 0;
 }
 </style>

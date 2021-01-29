@@ -72,17 +72,25 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   form {
-    width: fit-content;
+    width: 80%;
+    padding: 8px;
+    background: #f6f6f6;
+    box-shadow: 1px 2px 2px #b4b4b4;
   }
   input, label {
     padding: 0.2rem 0;
     margin: 0.2rem 0;
     font-family: "Roboto Medium",serif;
+    width: fit-content;
   }
   form div {
     display: flex;
     flex-direction: column;
     margin: auto;
+  }
+
+  form textarea {
+    width: 50%;
   }
   a {
     background: #007cba;
@@ -101,5 +109,6 @@ export default {
     border-radius: 3px;
     white-space: nowrap;
     box-sizing: border-box;
+    float: left;
   }
 </style>
