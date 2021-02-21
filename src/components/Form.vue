@@ -1,9 +1,7 @@
 <template>
-    <form>
-      <input type="checkbox" name="inHoliday" id="inHoliday" v-model="checked">
-      <label for="inHoliday">I'm going on vacation</label>
+    <form action="../GetDataStoreEvents.php" method="post">
       <p v-if="error">{{error}}</p>
-      <div v-if="checked">
+      <div>
         <label for="depart">Date de départ:</label>
         <input type="date" name="depart" id="depart" v-model="date_de_depart">
         <label for="retour">Date de retour:</label>
@@ -11,7 +9,7 @@
         <label for="message">Informer mes clients :</label>
         <textarea name="message" id="message" cols="30" rows="10" v-model="message"></textarea>
       </div>
-      <a @click="submit">Enregistrer les modifications</a>
+      <button type="submit" @click="submit">Enregistrer les modifications</button>
     </form>
 </template>
 
@@ -29,41 +27,6 @@ export default {
       message: '',
       error: '',
       arr: []
-    }
-  },
-  mounted() {
-    let jsonStringFromLS = localStorage.getItem('data');
-    this.checked = JSON.parse(jsonStringFromLS).state === true ? 'checked' : ''
-    console.log(JSON.parse(jsonStringFromLS).state)
-  },
-  watch: {
-    checked(newValue = !this.checked ? '' : 'checked', date_d, date_r = null, msg) {
-      this.checked = newValue
-      this.date_de_depart = date_d
-      this.date_de_retour = date_r
-      this.message = msg
-    }
-  },
-  methods: {
-    submit() {
-      if (this.checked) {
-        if (this.date_de_depart && this.message) {
-          this.arr.push({
-            state: this.checked,
-            date_de_depart: this.date_de_depart,
-            date_de_retour: this.date_de_retour,
-            message: this.message
-          })
-          return this.save()
-        } else {
-          this.error = "il y a une erreur"
-        }
-      }
-    },
-    save() {
-      //TODO: injection des données data dans la base de donnée
-      //création de cette base de données ==>  https://codex.wordpress.org/Creating_Tables_with_Plugins
-      localStorage.setItem("data", JSON.stringify(this.arr[0]))
     }
   }
 }

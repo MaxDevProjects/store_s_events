@@ -14,7 +14,7 @@ function store_events_install()
     if ($installed_ver != $version_db) {
         $table_name = $wpdb->prefix . 'store_events';
 
-        $sql = "CREATE TABLE $table_name (
+        $sql = "CREATE TABLE IF NOT EXISTS $table_name (
             id MEDIUMINT(9) NOT NULL AUTO_INCREMENT,
             date_depart DATE NOT NULL,
             date_retour DATE,
@@ -36,16 +36,15 @@ function store_events_install()
 function store_events_install_data()
 {
     global $wpdb;
-    $welcome_text = 'Congratulations, you just completed the installation!';
 
     $table_name = $wpdb->prefix . 'store_events';
 
     $wpdb->insert(
         $table_name,
         array(
-            'date_depart' => '2021-02-15',
-            'date_retour' => '2021-02-25',
-            'message' => $welcome_text,
+            'date_depart' => date("Y.m.d"),
+            'date_retour' => '',
+            'message' => date("h:i:sa") . ': Congratulations, you just completed the installation!',
         )
     );
 }

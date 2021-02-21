@@ -1,7 +1,7 @@
 <template>
     <ul>
-        <li class="isactive"><a href="#take-a-break">Take a break</a></li>
-        <li><a href="#post-event">post event</a></li>
+        <li class="isactive"><a href="#take-a-break">Notify event</a></li>
+        <li><a href="#post-event">Post new event in page "events" </a></li>
     </ul>
 </template>
 
