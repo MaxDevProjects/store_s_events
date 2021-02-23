@@ -1,4 +1,8 @@
 <?php
+/**
+* insertion des données par method post puis get
+* import du wp-config pour avoir accés à $wpdb
+*/
 require_once( str_replace('//','/',dirname(__FILE__).'/') .'../../../wp-config.php');
 function insertDataFromVue() {
     global $wpdb;
