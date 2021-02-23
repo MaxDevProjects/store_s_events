@@ -1,17 +1,14 @@
 <template>
   <Pagination/>
-  <Form/>
 </template>
 
 <script>
-import Form from "./components/Form";
 import Pagination from "./components/Pagination";
 
 export default {
   name: 'App',
   components: {
     Pagination,
-    Form,
   }
 }
 </script>

@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     submit() {
-      if (this.date_de_depart !== "" && this.message !== "") {
+      if (this.date_de_depart !== "" && this.message !== "" && this.message.length < 255) {
         axios.post('http://localhost/ownplugins_sandbox/wp-content/plugins/store-s-events/GetDataStoreEvents.php?',null, {
           params: {
             request: 1,
@@ -41,11 +41,8 @@ export default {
           }
         })
         .then((response) => {
-          console.log(response)
-          console.log(response.status)
           if (response.status === 200) {
             console.log("success save")
-            console.log(response.config.data)
           } else {
             console.log("failed save")
           }

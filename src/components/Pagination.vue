@@ -1,16 +1,34 @@
 <template>
     <ul>
-        <li class="isactive"><a href="#take-a-break">Notify event</a></li>
-        <li><a href="#post-event">Post new event in page "events" </a></li>
+      <li
+          v-for="item in menuItems" :key="item"
+          @click="isActive = item"
+          :class="{isActive : isActive === item}"
+      >{{item}}</li>
     </ul>
+    <div v-if="isActive === 'Events' ">
+        <Form/>
+    </div>
+    <div v-if="isActive === 'Historic' ">
+        <Historic/>
+    </div>
 </template>
 
 <script>
+import Form from "@/components/Form";
+import Historic from "@/components/Historic";
 export default {
     name: 'Pagination',
-    props: {
+  components: {Historic, Form},
+  props: {
         current: String
-    }
+    },
+  data() {
+      return {
+        menuItems: ['Events','Historic'],
+        isActive: "Events",
+      }
+  }
 }
 </script>
 
@@ -28,14 +46,16 @@ export default {
         border-bottom: none;
     }
 
-    li a {
+    li{
         text-decoration: none;
         color: #007cba;
         font-size: .8rem;
+        cursor: pointer;
     }
 
-    li.isactive {
+    li.isActive {
         background: #f6f6f6;
         box-shadow: 4px 0 6px #b4b4b4;
+        z-index: 99;
     }
 </style>
