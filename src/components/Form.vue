@@ -2,14 +2,14 @@
     <form method="post">
       <p v-if="error">{{error}}</p>
       <div>
-        <label for="date_de_depart">Date de départ:</label>
-        <input type="date" name="date_de_depart" id="date_de_depart" v-model="date_de_depart">
-        <label for="date_de_retour">Date de retour:</label>
-        <input type="date" name="date_de_retour" id="date_de_retour" v-model="date_de_retour">
+        <label for="date_depart">Date de départ:</label>
+        <input type="date" name="date_depart" id="date_depart" v-model="date_de_depart">
+        <label for="date_retour">Date de retour:</label>
+        <input type="date" name="date_retour" id="date_retour" v-model="date_de_retour">
         <label for="message">Informer mes clients :</label>
         <textarea name="message" id="message" cols="30" rows="10" v-model="message"></textarea>
       </div>
-      <a id="submit" @click="submit" value="Enregistrer les modifications">Enregistrer les modifications</a>
+      <input type="submit" id="submit" @click="submit" value="Enregistrer les modifications"/>
     </form>
 </template>
 
@@ -32,11 +32,13 @@ export default {
   methods: {
     submit() {
       if (this.date_de_depart !== "" && this.message !== "") {
-        axios.post('http://localhost/ownplugins_sandbox/wp-content/plugins/store-s-events/GetDataStoreEvents.php',  {
-          request: 1,
-          date_depart: this.date_de_depart,
-          date_retour: this.date_de_retour ? this.date_de_retour : '',
-          message: this.message
+        axios.post('http://localhost/ownplugins_sandbox/wp-content/plugins/store-s-events/GetDataStoreEvents.php?',null, {
+          params: {
+            request: 1,
+            date_depart: this.date_de_depart,
+            date_retour: this.date_de_retour ? this.date_de_retour : '',
+            message: this.message
+          }
         })
         .then((response) => {
           console.log(response)
