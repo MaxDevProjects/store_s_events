@@ -82,6 +82,10 @@ class StoresEvents
         echo "<div id='app'></div>";
     }
 
+    function display_event() {
+    include_once('GetLastEvent.php');
+    }
+
     private function hooks()
     {
         add_action('plugins_loaded', 'myplugin_update_db_check');
@@ -92,6 +96,8 @@ class StoresEvents
         //hook de chargement des scripts
         add_action('wp_enqueue_scripts', [$this, 'func_load_script']);
         add_shortcode('wpvue', 'store_s_events_content');
+        add_action('wp_head', [$this, 'display_event']);
+
 
         /**
          *Script that import modules must use a script tag with type="module",
