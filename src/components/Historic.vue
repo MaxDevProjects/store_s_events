@@ -1,5 +1,4 @@
 <template>
-  <p>Watch your historic 😀</p>
   <table>
     <tr>
       <th>Date de départ</th>
@@ -11,7 +10,7 @@
       <td>{{data.date_depart}}</td>
       <td>{{ data.date_retour }}</td>
       <td>{{ data.message }}</td>
-      <td>❌</td>
+      <td @click="removeRow(data.id)">❌</td>
     </tr>
   </table>
 </template>
@@ -23,17 +22,37 @@ export default {
   name: "Historic",
   data() {
     return {
-      allData: ''
+      allData: '',
+      id: null
     }
   },
-  mounted() {
-    axios.get('http://localhost/ownplugins_sandbox/wp-content/plugins/store-s-events/getAllDataEvents.php')
-    .then(response => {
-      this.allData = response.data
-    })
-    .catch(error => {
-      console.log(error)
-    })
+  created() {
+    this.fetchAllData()
+  },
+  methods: {
+    async fetchAllData() {
+      axios.get('http://localhost/ownplugins_sandbox/wp-content/plugins/store-s-events/GetAllDataEvents.php')
+          .then(response => {
+            this.allData = response.data
+          })
+          .catch(error => {
+            console.log(error)
+          })
+    },
+    removeRow(id) {
+      axios.post("http://localhost/ownplugins_sandbox/wp-content/plugins/store-s-events/DeleteDataEvents.php?", null, {
+        params: {
+          id: id
+        }
+      })
+      .then(res => {
+        this.fetchAllData()
+        return res
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    }
   }
 }
 </script>
