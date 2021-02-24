@@ -1,15 +1,19 @@
 <template>
-    <form method="post">
-      <p v-if="error">{{error}}</p>
+  <div v-if="success">
+    <p class="color-success">
+      ✔ your event has been registered
+    </p>
+  </div>
+    <form>
       <div>
-        <label for="date_depart">Date de départ:</label>
+        <label for="date_depart">Start: <span class="missing" v-if="missing">missing fields</span></label>
         <input type="date" name="date_depart" id="date_depart" v-model="date_de_depart">
-        <label for="date_retour">Date de retour:</label>
+        <label for="date_retour">Return:</label>
         <input type="date" name="date_retour" id="date_retour" v-model="date_de_retour">
-        <label for="message">Informer mes clients :</label>
+        <label for="message">Message: <span class="missing" v-if="missing">missing fields</span></label>
         <textarea name="message" id="message" cols="30" rows="10" v-model="message"></textarea>
       </div>
-      <input type="submit" id="submit" @click="submit" value="Enregistrer les modifications"/>
+      <input type="button" id="submit" @click="submit" value="Send event"/>
     </form>
 </template>
 
@@ -27,6 +31,8 @@ export default {
       date_de_retour: "",
       message: "",
       error: "",
+      success: false,
+      missing: false
     }
   },
   methods: {
@@ -42,16 +48,20 @@ export default {
         })
         .then((response) => {
           if (response.status === 200) {
-            console.log("success save")
+            this.success = true
+            this.date_de_depart = ""
+            this.date_de_retour = ""
+            this.message = ""
           } else {
-            console.log("failed save")
+            this.error(`error ${response.statusText}`)
           }
         })
         .catch((error) => {
           console.log({error})
         });
       } else {
-        console.log("veuillez remplir les champs obligatoire")
+        if (!this.date_de_depart) this.missing = true
+        if (!this.message) this.missing = true
       }
     }
   }
@@ -99,5 +109,16 @@ export default {
     white-space: nowrap;
     box-sizing: border-box;
     float: left;
+  }
+  .color-success {
+    background: #2ebf7b;
+    color: #fff;
+    width: fit-content;
+    padding: 12px;
+    border-radius: 8px;
+  }
+  .missing {
+    color: #bf2e2e;
+    font-weight: bold;
   }
 </style>

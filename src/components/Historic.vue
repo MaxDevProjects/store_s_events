@@ -1,8 +1,11 @@
 <template>
+  <div class="loader" v-if="loading">
+    loading data...
+  </div>
   <table>
     <tr>
-      <th>Date de départ</th>
-      <th>Date de retour</th>
+      <th>Start</th>
+      <th>Return</th>
       <th>Message</th>
       <th></th>
     </tr>
@@ -10,7 +13,7 @@
       <td>{{data.date_depart}}</td>
       <td>{{ data.date_retour }}</td>
       <td>{{ data.message }}</td>
-      <td @click="removeRow(data.id)">❌</td>
+      <td class="pointer" @click="removeRow(data.id)">❌<small>(delete)</small></td>
     </tr>
   </table>
 </template>
@@ -23,7 +26,8 @@ export default {
   data() {
     return {
       allData: '',
-      id: null
+      id: null,
+      loading: false
     }
   },
   created() {
@@ -31,12 +35,16 @@ export default {
   },
   methods: {
     async fetchAllData() {
+      this.loading = true
       axios.get('http://localhost/ownplugins_sandbox/wp-content/plugins/store-s-events/GetAllDataEvents.php')
           .then(response => {
-            this.allData = response.data
+            this.loading = false
+            return this.allData = response.data
           })
           .catch(error => {
+            this.loading = false
             console.log(error)
+            return Promise.reject(error)
           })
     },
     removeRow(id) {
@@ -68,5 +76,20 @@ table {
 }
 th, td {
   padding: 4px 16px;
+}
+.pointer {
+  cursor: pointer;
+}
+.loader {
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  height: 100%;
+  background: #fffffff0;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  transition: 1s;
+  font-size: 2em;
 }
 </style>
