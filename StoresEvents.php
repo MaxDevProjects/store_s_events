@@ -47,6 +47,11 @@ class StoresEvents
             array(),
             '1.0.0'
         );
+        wp_enqueue_style('event_front',
+            plugins_url('styleEvent.css', __FILE__),
+            array(),
+            '1.0.0'
+        );
     }
 
 /*
@@ -82,8 +87,8 @@ class StoresEvents
         echo "<div id='app'></div>";
     }
 
-    function display_event() {
-    include_once('GetLastEvent.php');
+    public function display_event() {
+        include_once('GetLastEvent.php');
     }
 
     private function hooks()
@@ -97,7 +102,6 @@ class StoresEvents
         add_action('wp_enqueue_scripts', [$this, 'func_load_script']);
         add_shortcode('wpvue', 'store_s_events_content');
         add_action('wp_head', [$this, 'display_event']);
-
 
         /**
          *Script that import modules must use a script tag with type="module",
