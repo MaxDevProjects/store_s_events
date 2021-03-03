@@ -38,7 +38,7 @@ export default {
   methods: {
     submit() {
       if (this.date_de_depart !== "" && this.message !== "" && this.message.length < 255) {
-        axios.post('http://localhost/ownplugins_sandbox/wp-content/plugins/store-s-events/GetDataStoreEvents.php?',null, {
+        axios.post('../wp-content/plugins/store-s-events/GetDataStoreEvents.php?',null, {
           params: {
             request: 1,
             date_depart: this.date_de_depart,

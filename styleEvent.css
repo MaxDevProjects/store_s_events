@@ -6,6 +6,16 @@
     padding: 1rem;
     background-color: #f5efe0;
     z-index: 10000000;
+    animation: eventIn .5s ease-in-out;
+}
+
+@keyframes eventIn {
+    from {
+        left: -600px;
+    }
+    to {
+        left: 0;
+    }
 }
 
 #event > ul {

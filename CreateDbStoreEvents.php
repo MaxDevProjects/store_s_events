@@ -44,7 +44,7 @@ function store_events_install_data()
         array(
             'date_depart' => date("Y.m.d"),
             'date_retour' => '',
-            'message' => date("h:i:sa") . ': Congratulations, you just completed the installation!',
+            'message' => 'Congratulations, you just completed the installation!',
         )
     );
 }

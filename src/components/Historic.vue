@@ -36,7 +36,7 @@ export default {
   methods: {
     async fetchAllData() {
       this.loading = true
-      axios.get('http://localhost/ownplugins_sandbox/wp-content/plugins/store-s-events/GetAllDataEvents.php')
+      axios.get('../wp-content/plugins/store-s-events/GetAllDataEvents.php')
           .then(response => {
             this.loading = false
             return this.allData = response.data
@@ -48,7 +48,7 @@ export default {
           })
     },
     removeRow(id) {
-      axios.post("http://localhost/ownplugins_sandbox/wp-content/plugins/store-s-events/DeleteDataEvents.php?", null, {
+      axios.post("../wp-content/plugins/store-s-events/DeleteDataEvents.php?", null, {
         params: {
           id: id
         }
